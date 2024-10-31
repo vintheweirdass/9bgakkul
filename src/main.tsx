@@ -42,7 +42,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <BrowserRouter basename={"https://9b.is-not.cool"}> {/* Add basename here */}
+      <BrowserRouter basename={"9b.is-not.cool"}> {/* Add basename here */}
       <Routes>
         <Route path="/" element={ <App /> }/>
         <Route path="/friends" element={ <FriendsPage /> }>
