@@ -1,11 +1,13 @@
-import { InputBase, alpha, styled } from "@mui/material"
+import { Avatar, Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, InputBase, alpha, styled, useMediaQuery, useTheme } from "@mui/material"
 import Dock from "./components/Dock"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import React from "react";
+import { badges } from "./friendsList";
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: 30,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
@@ -45,12 +47,59 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
+function AlertDialog() {
+ 
+  function ListofBadges(){
+    const ok = badges
+    ok.map()
+  }
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
+  return (
+    <React.Fragment>
+      
+    <Chip sx={{
+      marginBottom:3,
+      fontSize:18
+    }} avatar={<Avatar>14</Avatar>} label="Show all available badges" onClick={handleClickOpen}/>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Select your badges here"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            <ListofBadges/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
+  );
+}
 export default function(){
     return <>
     <Dock/>
     <h1>9b friends</h1>
     <p>This is the list of friends in <code>9b</code> that already opt-in to show theirself in the friends list</p>
     <p>Or opt-out if they use the sub-sub domain feature. To prevent malicious activites to the <Link to="/">subdomain</Link>, and the <Link to="https://is-not.cool">root domain itself</Link></p>
+    <AlertDialog/>
     <Search>
             <SearchIconWrapper>
               <FontAwesomeIcon icon={faSearch} />

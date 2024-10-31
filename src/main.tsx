@@ -25,7 +25,7 @@ function TitleAnim() {
     document.title = currentTitle;
 
     const intervalId = setInterval(() => {
-      currentTitle = currentTitle.slice(2) + currentTitle.slice(0, 2); 
+      currentTitle = currentTitle.slice(1) + currentTitle.slice(0, 1); 
       document.title = currentTitle;
     }, 1000); // Adjust the interval for speed
 
@@ -59,7 +59,8 @@ function Root() {
   return (
     <Routes>
       {/* ⬆️ Home route lifted up to the data router */}
-      <Route path="/friends/*" element={<FriendsPage />} />
+      <Route path="/friends/" element={<FriendsPage />} />
+      <Route path="/friends/:name" element={<FriendsPage />} />
     </Routes>
   );
 }
