@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Dock from './components/Dock'
 import { Link } from 'react-router-dom'
 import { Chip, Rating } from '@mui/material'
