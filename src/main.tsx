@@ -1,8 +1,9 @@
 import { StrictMode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import {
-  createBrowserRouter,
-  RouterProvider,
+  BrowserRouter,
+  Route,
+  Routes,
 } from "react-router-dom";
 import App from './App.tsx'
 import FriendsPage from "./Friends.tsx"
@@ -36,21 +37,17 @@ const darkTheme = createTheme({
     mode: 'dark',
   },
 });
-const Route = createBrowserRouter([
-  {
-    path: "/",
-    element: <App/>,
-  },
-  {
-    path:"/friends",
-    element:<FriendsPage/>
-  }
-])
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <RouterProvider router={Route}/>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={ <App /> }/>
+        <Route path="/friends" element={ <FriendsPage /> }>
+        </Route>
+      </Routes>
+    </BrowserRouter>
       </ThemeProvider>
     <TitleAnim/>
   </StrictMode>,
