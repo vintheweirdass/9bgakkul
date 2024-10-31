@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faFire, faUmbrellaBeach, faRepeat, faBed} from "@fortawesome/free-solid-svg-icons"
 import { Spotify } from 'react-spotify-embed'
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
