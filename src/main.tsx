@@ -6,6 +6,7 @@ import {
   Routes,
 } from "react-router-dom";
 import App from './App.tsx'
+
 import FriendsPage from "./Friends.tsx"
 import "./index.css"
 import "./App.css"
@@ -41,7 +42,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <BrowserRouter>
+      <BrowserRouter basename={"https://9b.is-not.cool"}> {/* Add basename here */}
       <Routes>
         <Route path="/" element={ <App /> }/>
         <Route path="/friends" element={ <FriendsPage /> }>
