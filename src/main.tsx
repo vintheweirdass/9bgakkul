@@ -1,12 +1,12 @@
 import { StrictMode, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import {
-  BrowserRouter,
+  createBrowserRouter,
   Route,
+  RouterProvider,
   Routes,
 } from "react-router-dom";
 import App from './App.tsx'
-
 import FriendsPage from "./Friends.tsx"
 import "./index.css"
 import "./App.css"
@@ -38,18 +38,28 @@ const darkTheme = createTheme({
     mode: 'dark',
   },
 });
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App/>,
+  },
+  { path: "*", element: <Root /> },
+])
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <BrowserRouter basename={"9b.is-not.cool"}> {/* Add basename here */}
-      <Routes>
-        <Route path="/" element={ <App /> }/>
-        <Route path="/friends" element={ <FriendsPage /> }>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      <RouterProvider router={router}/>
       </ThemeProvider>
     <TitleAnim/>
   </StrictMode>,
 )
+
+function Root() {
+  return (
+    <Routes>
+      {/* ⬆️ Home route lifted up to the data router */}
+      <Route path="/friends/*" element={<FriendsPage />} />
+    </Routes>
+  );
+}
