@@ -61,17 +61,31 @@ function SearchUi() {
     }
     return JSON.stringify(obj)
   }
-  function convertJsonToParam(p?:string|null):URLSearchParams|undefined {
+  function convertJsonToParam(p?:string|null, handler?:URLSearchParams):URLSearchParams {
     const inp = p?JSON.parse(p):{}
-    if (Object.keys(inp??{}).length<1) return;
-    const handler = new URLSearchParams()
+    const h = handler||new URLSearchParams()
+    if (Object.keys(inp??{}).length<1) return h;
     for (const [k,v] of Object.entries(inp)) {
-      handler.set(k, v as string)
+      h.set(k, v as string)
     }
-    return handler
+    return h
   }
   const [open, setOpen] = React.useState(false);
-  const [searchParams, setSearchParams] = useSearchParams(convertJsonToParam(sessionStorage.getItem(lastVisitedPage)));
+  const [searchParams, setSearchParams] = useSearchParams();
+  const p = useParams();
+  const [load, setLoad] = React.useState(false);
+  useEffect(()=>{
+    if (!p.name) {
+      if (load) {
+      sessionStorage.setItem(lastVisitedPage, convertParamToJson(searchParams))
+      } else {
+      setSearchParams(e=>{
+        setLoad(true)
+        return convertJsonToParam(sessionStorage.getItem(lastVisitedPage), e)
+      })
+      } 
+    } 
+  }, [p.name, searchParams])
   // google, fix this motherfucker
   const spBadges = searchParams.get("badges")
   const spSearch = searchParams.get("search")
@@ -177,7 +191,7 @@ function SearchUi() {
         const defaultProvider:{[k in (typeof social)[number]]:string} = {
           discord:"https://discord.com/users/",
           instagram:"https://instagram.com/",
-          spotify:"https://spotify.com/users/",
+          spotify:"https://open.spotify.com/users/",
           website:"https://",
           github:"https://github.com/",
           email:"mailto:"
@@ -186,7 +200,6 @@ function SearchUi() {
           const ok:JSX.Element[] = []
           for (const [k, v] of Object.entries(info.social!)) {
             for (const each of v) {
-              console.log(name,k)
              ok.push(<Link key={k+each} to={`${defaultProvider[k as keyof typeof defaultProvider]}${each}`}>
               <Button>
               <Typography variant="body1">{k}{k!=="spotify"&&!isNum(each)?` (${each})`:undefined}</Typography>
@@ -200,7 +213,6 @@ function SearchUi() {
           Social <Box component="span" display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap={1}><Domains/></Box>
         </Typography>
       }
-      const p = useParams();
       useEffect(()=>{
         if (p.name && p.name === name) {
           sessionStorage.setItem(lastVisitedPage, convertParamToJson(searchParams))
@@ -263,7 +275,7 @@ function SearchUi() {
       {elems}
     </Grid2>;
   }
-
+  let [search, setSearch] = React.useState(searchParams.get("search")??"")
   return (
     <React.Fragment>
       <div style={{display:"flex", flexDirection:"row", flexGrow:1, justifyContent:"center", alignItems:"center", marginBottom:10}}>
@@ -273,14 +285,19 @@ function SearchUi() {
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Search…"
-        defaultValue={searchParams.get("search")}
+        onChange={(e)=>{
+          setSearch(e.target.value)
+        }}
+        value={search}
         inputProps={{ 'aria-label': 'search' }}
         onKeyUp={(e) => {
           if (e.key === "Enter") {
             setSearchParams(src=>{
             const val = (e.target as HTMLInputElement).value
             if (val.length<1) {
-              if (src.has("search")) src.delete("search")
+              if (src.has("search")) {
+                src.delete("search");
+              }
             } else src.set("search", val);
             return src
           })
@@ -291,7 +308,13 @@ function SearchUi() {
     </Search>
     <Button onClick={()=>{
       setSearchParams(src=>{
-        if (src.has("search")) src.delete("search")
+        if (src.has("search")) {
+          setSearch((s)=>{
+            s = ""
+            return s
+          })
+          src.delete("search")
+        }
         return src
       })
     }}>Clear all</Button>
@@ -325,7 +348,10 @@ function SearchUi() {
           searchParams.has("badges")
           &&
           <Button onClick={()=>{
-            searchParams.delete("badges")
+            setSearchParams(src=>{
+              if (src.has("badges")) src.delete("badges")
+              return src
+            })
             setOpen(false)
           }}>
             Clear All

@@ -41,7 +41,7 @@ export const friends:FriendsList =  {
       description:"A great captain. Supports palestine ftw",
       avatar:Arka,
       social:{
-      instagram:["arkananata.langit"]
+      instagram:["arkananta.langit"]
       }
     },
     "eryquicc":{
