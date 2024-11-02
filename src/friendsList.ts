@@ -48,10 +48,11 @@ export const friends:FriendsList =  {
       badges:["External (not from our school)"],
       description:"cupglassdev's friend, a fucking cool dude",
       social:{
+        github:["Eryquicc"],
       instagram:["yaboyquicc"],
-      spotify:["31d2kb6hsopz7rfm7fdvfoyk7izu"],
       website:["eryquicc.is-a.dev"],
-      github:["Eryquicc"]
+      spotify:["31d2kb6hsopz7rfm7fdvfoyk7izu"],
+      discord:["629939924589608961"]
       }
     },
     "hroiene_":{
