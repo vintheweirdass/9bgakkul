@@ -2,7 +2,7 @@ import {Box, Button, Card, CardContent, Chip, Dialog, DialogActions, DialogConte
 import Dock from "./components/Dock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import { Badges, badges, badgesColor, friends, social } from "./friendsList.ts";
 // payah si js, gini doang butuh impor modul external
@@ -89,6 +89,7 @@ function SearchUi() {
   // google, fix this motherfucker
   const spBadges = searchParams.get("badges")
   const spSearch = searchParams.get("search")
+  const navigate = useNavigate();
   const filterBadges:Badges[] = (spBadges && ((spBadges.includes(",")?spBadges.split(","):[spBadges]).some(function(each){
     return (badges as string[]).includes(each)
   })))?(spBadges.includes(",")?spBadges.split(","):[spBadges]) as Badges[]:[]
@@ -237,7 +238,11 @@ function SearchUi() {
         </Card>
 <Dialog
         open={aboutPopup}
-        onClose={()=>{setAboutPopup(false)}}
+        // workaround
+        onClose={()=>{
+          navigate("/friends")
+          setAboutPopup(false)
+        }}
         aria-labelledby="alert-dialog-title"
       >
         <DialogTitle id="alert-dialog-title">
