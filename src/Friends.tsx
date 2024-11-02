@@ -191,7 +191,7 @@ function SearchUi() {
         const defaultProvider:{[k in (typeof social)[number]]:string} = {
           discord:"https://discord.com/users/",
           instagram:"https://instagram.com/",
-          spotify:"https://open.spotify.com/users/",
+          spotify:"https://open.spotify.com/user/",
           website:"https://",
           github:"https://github.com/",
           email:"mailto:"
