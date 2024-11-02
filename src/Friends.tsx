@@ -173,21 +173,23 @@ function SearchUi() {
         </Typography>
       }
       function ContactMe() {
-        if (!info.social && Object.keys(info.social??{}).length>0) return
+        if (!info.social && Object.keys(info.social??{}).length<1) return
         const defaultProvider:{[k in (typeof social)[number]]:string} = {
           discord:"https://discord.com/users/",
           instagram:"https://instagram.com/",
           spotify:"https://spotify.com/users/",
           website:"https://",
+          github:"https://github.com/",
           email:"mailto:"
         }
         function Domains(){
           const ok:JSX.Element[] = []
           for (const [k, v] of Object.entries(info.social!)) {
             for (const each of v) {
+              console.log(name,k)
              ok.push(<Link key={k+each} to={`${defaultProvider[k as keyof typeof defaultProvider]}${each}`}>
               <Button>
-              <Typography variant="body1">{k}{(!isNum(each)) && ` (${each})`}</Typography>
+              <Typography variant="body1">{k}{k!=="spotify"&&!isNum(each)?` (${each})`:undefined}</Typography>
               </Button>
               </Link>)
             }

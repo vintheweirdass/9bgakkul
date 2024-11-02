@@ -21,7 +21,7 @@ function App() {
       <div className="card">
       <Rating name="read-only" value={100} readOnly />
         <h3>
-          We're <code>9b</code>, also called as <code>Salak</code>
+          We're <code>9b</code>, also known as <code>Salak</code>
         </h3>
         <p>
           We like to <Chip component={'span'} icon={<FontAwesomeIcon icon={faUmbrellaBeach} color="orange" />} label="Chill" variant="filled"/>,

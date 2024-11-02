@@ -2,7 +2,7 @@ import Arka from "./assets/friendsPfp/instagram/arkanantalangit.jpg"
 import { red, orange, lightGreen, pink, lightBlue, blue } from '@mui/material/colors';
 const tuple:<T extends string[]>(...args: T) => typeof args = <T extends string[]>(...args: T) => args;
 export const badges = tuple('Owner', 'Chief of Class', 'Vice of Class', 'Normal student', 'is-not.cool Admin', 'External (not from our school)');
-export const social = tuple('discord', 'instagram', 'spotify', 'website', 'email')
+export const social = tuple('discord', 'instagram', 'spotify', 'website', 'github', 'email')
 export type Badges = typeof badges[number];
 export type BadgesColor = Record<Badges, string>
 export const badgesColor:BadgesColor = {
@@ -21,6 +21,7 @@ export type FriendsList = Record<string, {
       instagram?:string[];
       spotify?:string[];
       website?:string[];
+      github?:string[];
       email?:string[];
     }
     ownsDomain?:string[];
@@ -41,6 +42,16 @@ export const friends:FriendsList =  {
       avatar:Arka,
       social:{
       instagram:["arkananata.langit"]
+      }
+    },
+    "eryquicc":{
+      badges:["External (not from our school)"],
+      description:"cupglassdev's friend, a fucking cool dude",
+      social:{
+      instagram:["yaboyquicc"],
+      spotify:["31d2kb6hsopz7rfm7fdvfoyk7izu"],
+      website:["eryquicc.is-a.dev"],
+      github:["Eryquicc"]
       }
     },
     "hroiene_":{
