@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, useMemo } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {
   createBrowserRouter,
