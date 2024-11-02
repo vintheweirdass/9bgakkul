@@ -1,8 +1,8 @@
-biarin error, syntax error. Gw ntaran publish ke vercelnya
-import arka from "./assets/friendsPfp/instagram/arkanantalangit.jpg"
+import Arka from "./assets/friendsPfp/instagram/arkanantalangit.jpg"
 import { red, orange, lightGreen, pink, lightBlue, blue } from '@mui/material/colors';
 const tuple:<T extends string[]>(...args: T) => typeof args = <T extends string[]>(...args: T) => args;
 export const badges = tuple('Owner', 'Chief of Class', 'Vice of Class', 'Normal student', 'is-not.cool Admin', 'External (not from our school)');
+export const social = tuple('discord', 'instagram', 'spotify', 'website', 'email')
 export type Badges = typeof badges[number];
 export type BadgesColor = Record<Badges, string>
 export const badgesColor:BadgesColor = {
@@ -17,10 +17,11 @@ export type FriendsList = Record<string, {
     badges: Badges[];
     avatar?:string;
     social?:{
-      discord?:string;
-      instagram?:string;
-      spotify?:string;
-      website?:string;
+      discord?:string[];
+      instagram?:string[];
+      spotify?:string[];
+      website?:string[];
+      email?:string[];
     }
     ownsDomain?:string[];
     description?:string;
@@ -30,27 +31,41 @@ export const friends:FriendsList =  {
     cupglassdev:{
       badges:["Owner", "Normal student"],
       avatar:"https://avatars.githubusercontent.com/u/70825723?v=4",
-      social:{discord:"999863217557880842"},
+      social:{discord:["999863217557880842"], instagram:["cupglassdev"],email:["abuse@cupglass.is-a.dev"]},
       ownsDomain:["@"],
       description:"A dumbass person who likes to destroy a Pi"
     },
     "arkananta.langit":{
       badges:["Chief of Class"],
       description:"A great captain. Supports palestine ftw",
-      avatar:arka
+      avatar:Arka,
+      social:{
+      instagram:["arkananata.langit"]
+      }
     },
     "hroiene_":{
       badges:["Normal student"],
       description:"just a chill guy tbh",
       social:{
-        instagram:"hroiene_"
+        instagram:["hroiene_", "gdsnmnstrs", "jographicss"]
+      }
+    },
+    "romanptic":{
+      badges:["Normal student"],
+      social:{
+        instagram:["romanptic"]
+      }
+    },
+    "yunnaiurs":{
+      badges:["Normal student"],
+      social:{
+        instagram:["yunnaiurs"]
       }
     },
     p_t_r_i_t_n_d_i_l_i_a:{
       badges:["Normal student"],
       social:{
-        instagram:"p_t_r_i_t_n_d_i_l_i_a"
-      },
-      description:"just me, being me."
-    }
+        instagram:["p_t_r_i_t_n_d_i_l_i_a"]
+      }
+    },
 }

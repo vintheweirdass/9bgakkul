@@ -4,8 +4,11 @@ import { Chip, Rating } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faFire, faUmbrellaBeach, faRepeat, faBed} from "@fortawesome/free-solid-svg-icons"
 import { Spotify } from 'react-spotify-embed'
+import React from 'react'
 function App() {
-
+  React.useLayoutEffect(() => {
+    (window??globalThis).scrollTo(0, 0)
+});
   return (
     <>
       <Dock></Dock>
