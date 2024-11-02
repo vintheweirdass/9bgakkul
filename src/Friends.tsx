@@ -196,7 +196,7 @@ function SearchUi() {
           github:"https://github.com/",
           email:"mailto:"
         }
-        function Domains(){
+        function Social(){
           const ok:JSX.Element[] = []
           for (const [k, v] of Object.entries(info.social!)) {
             for (const each of v) {
@@ -210,7 +210,7 @@ function SearchUi() {
           return ok
         }
         return <Typography variant="body1" sx={{textAlign:"center"}}>
-          Social <Box component="span" display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap={1}><Domains/></Box>
+          Social <Box component="span" display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap={1}><Social/></Box>
         </Typography>
       }
       useEffect(()=>{
