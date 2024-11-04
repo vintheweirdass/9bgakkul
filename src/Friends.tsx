@@ -72,20 +72,8 @@ function SearchUi() {
   }
   const [open, setOpen] = React.useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const p = useParams();
   const [load, setLoad] = React.useState(false);
-  useEffect(()=>{
-    if (!p.name) {
-      if (load) {
-      sessionStorage.setItem(lastVisitedPage, convertParamToJson(searchParams))
-      } else {
-      setSearchParams(e=>{
-        setLoad(true)
-        return convertJsonToParam(sessionStorage.getItem(lastVisitedPage), e)
-      })
-      } 
-    } 
-  }, [p.name, searchParams])
+  const p = useParams();
   // google, fix this motherfucker
   const spBadges = searchParams.get("badges")
   const spSearch = searchParams.get("search")
@@ -104,6 +92,18 @@ function SearchUi() {
   //   return src
   //   })
   // }, [filterBadges])
+  useEffect(()=>{
+    if (!p.name) {
+      if (load) {
+      sessionStorage.setItem(lastVisitedPage, convertParamToJson(searchParams))
+      } else {
+      setSearchParams(e=>{
+        setLoad(true)
+        return convertJsonToParam(sessionStorage.getItem(lastVisitedPage), e)
+      })
+      } 
+    } 
+  }, [p.name, searchParams])
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -137,6 +137,7 @@ function SearchUi() {
 
   function ListofFriends() {
     const elems: JSX.Element[] = [];
+    const bios:{[K:string]:()=>void} = {}
     let persons:typeof friends={}
         // try finding the match
     if (filterBadges.length<1 && !spSearch) persons = friends
@@ -157,8 +158,12 @@ function SearchUi() {
     if (Object.keys(persons).length<1) {
     return [<Typography key={"notfound__!__!"} variant="h6">Person not found</Typography>]
     }
+    useEffect(()=>{
+      if (!p.name) return;
+      if (!bios[p.name]) return;
+      bios[p.name]()
+    }, [p.name])
     for (const [name, info] of Object.entries(persons)) {
-      const [aboutPopup, setAboutPopup] = React.useState(false)
       function BadgesAvailable() {
         const ok: JSX.Element[] = [];
         if (info.badges) {
@@ -214,12 +219,13 @@ function SearchUi() {
           Social <Box component="span" display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap={1}><Social/></Box>
         </Typography>
       }
-      useEffect(()=>{
-        if (p.name && p.name === name) {
-          sessionStorage.setItem(lastVisitedPage, convertParamToJson(searchParams))
-          setAboutPopup(true)
-        }
-      }, [p.name])
+      const [aboutPopup, setAboutPopup] = React.useState(false)
+      bios[name] = () =>{
+        setAboutPopup((e)=>{
+          e=true
+          return e
+        })
+      };
       elems.push(<Grid2 key={name} size={5.5}>
         <Card>
         <CardContent>
@@ -236,37 +242,37 @@ function SearchUi() {
         <Link to={`/friends/${name}`}><Button size="large">Learn More</Button></Link>
         </CardContent>
         </Card>
-<Dialog
-        open={aboutPopup}
-        // workaround
-        onClose={()=>{
-          navigate("/friends")
-          setAboutPopup(false)
-        }}
-        aria-labelledby="alert-dialog-title"
-      >
-        <DialogTitle id="alert-dialog-title">
-          <BadgesAvailable/><br/>
-          About {name}
-        </DialogTitle>
-        <DialogContent style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
-          {info.description && <>
-            <Typography variant="body1">
-            Description
-          </Typography><Typography variant="body1" sx={{color:"text.secondary"}}>
-            {info.description}
-          </Typography></>}
-          {info.ownsDomain && <OwnsDomain/>}
-          {(info.social && Object.keys(info.social??{}).length>0) && <ContactMe/>}
-        </DialogContent>
-        <DialogActions>
-          <Link to="/friends">
-          <Button>
-            Close
-          </Button>
-          </Link>
-        </DialogActions>
-      </Dialog>
+        <Dialog
+              open={aboutPopup}
+              // workaround
+              onClose={()=>{
+                navigate("/friends")
+                setAboutPopup(false)
+              }}
+              aria-labelledby="alert-dialog-title"
+            >
+              <DialogTitle id="alert-dialog-title">
+                <BadgesAvailable/><br/>
+                About {name}
+              </DialogTitle>
+              <DialogContent style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+                {info.description && <>
+                  <Typography variant="body1">
+                  Description
+                </Typography><Typography variant="body1" sx={{color:"text.secondary"}}>
+                  {info.description}
+                </Typography></>}
+                {info.ownsDomain && <OwnsDomain/>}
+                {(info.social && Object.keys(info.social??{}).length>0) && <ContactMe/>}
+              </DialogContent>
+              <DialogActions>
+                <Link to="/friends">
+                <Button>
+                  Close
+                </Button>
+                </Link>
+              </DialogActions>
+            </Dialog>
 </Grid2>);
     }
     return <Grid2
