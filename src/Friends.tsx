@@ -246,8 +246,8 @@ function SearchUi() {
               open={aboutPopup}
               // workaround
               onClose={()=>{
-                navigate("/friends")
                 setAboutPopup(false)
+                navigate("/friends")
               }}
               aria-labelledby="alert-dialog-title"
             >
