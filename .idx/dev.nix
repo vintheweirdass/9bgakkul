@@ -28,7 +28,7 @@
       enable = true;
       previews = {
         web = {
-          # command = ["vite" "--port" "$PORT" "--host" "0.0.0.0"];
+          # command = ["vite" "--port" "$PORT" "--host" ""];
           command = ["node" "index.js" "$PORT"];
           manager = "web";
         };

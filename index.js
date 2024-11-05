@@ -11,7 +11,7 @@ app.get((req, res, next) => {
   if (isbot()) res.sendStatus(403);
   else next();
 });
-app.get("/", (_, res) => {
+app.get("/", (req, res) => {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.header("Expires", "-1");
   res.header("Pragma", "no-cache");
@@ -31,6 +31,4 @@ app.get("/assets/:file", async (req, res) => {
 });
 console.log("test")
 //app.set("port", process.env.PORT||8080)
-app.listen(9000, () => {
-  console.log("server listening on port 8080");
-});
+app.listen(process.env.PORT||8080, '0.0.0.0');
