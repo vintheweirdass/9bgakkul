@@ -5,8 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node index.js $PORT",
-    "build": "tsc -b && vite build"
+    "start": "npm run build && node index.js",
+    "build": "tsc --build tsconfig.json && vite build"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -22,6 +22,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "is-number": "^7.0.0",
+    "isbot": "^5.1.17",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.27.0",
@@ -38,7 +39,7 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
-    "typescript": "^5.5.3",
+    "typescript": "^5.6.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
   }
