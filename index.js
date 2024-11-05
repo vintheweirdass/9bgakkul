@@ -15,6 +15,7 @@ app.get("/", (_, res) => {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.header("Expires", "-1");
   res.header("Pragma", "no-cache");
+  console.log(`${assetsDir}/${req.params.file}`)
   res.sendFile(`${distDir}/index.html`);
 });
 app.get("/assets/:file", async (req, res) => {
@@ -28,6 +29,8 @@ app.get("/assets/:file", async (req, res) => {
   }
   res.sendFile(`${assetsDir}/${req.params.file}`);
 });
-app.listen(process.env.port??8080, () => {
+console.log("test")
+//app.set("port", process.env.PORT||8080)
+app.listen(9000, () => {
   console.log("server listening on port 8080");
 });
