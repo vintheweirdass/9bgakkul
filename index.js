@@ -13,6 +13,7 @@ app.use((req, res, next) => {
         res.sendFile(path.join(import.meta.dirname, 'dist', 'index.html'));
     }
 });
-app.listen(8080, () => {
+console.log(process.env)
+app.listen(process.env["PORT"]||8080, () => {
     console.log('server listening on port 8080')
 })

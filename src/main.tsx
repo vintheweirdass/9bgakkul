@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import App from './App.tsx'
 import FriendsPage from "./Friends.tsx"
+import PanelPage from "./Panel.tsx"
 import Page404 from "./404.tsx"
 import "./index.css"
 import "./App.css"
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <><App/><AbuseReport/></>,
   },
-  { path: "*", element: <><Root /><AbuseReport/></> },
+  { path: "*", element: <Root /> },
 ])
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -43,9 +44,10 @@ function Root() {
   return (
     <Routes>
       {/* ⬆️ Home route lifted up to the data router */}
-      <Route path="/friends/" element={<FriendsPage />} />
-      <Route path="/friends/:name" element={<FriendsPage />} />
-      <Route path="*" element={<Page404 />} />
+      <Route path="/friends/" element={<><FriendsPage /><AbuseReport /></>} />
+      <Route path="/panel/" element={<PanelPage />} />
+      <Route path="/friends/:name" element={<><FriendsPage /><AbuseReport /></>} />
+      <Route path="*" element={<><Page404 /><AbuseReport /></>} />
     </Routes>
   );
 }

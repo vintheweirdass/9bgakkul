@@ -19,7 +19,7 @@
       onCreate = {
         npm-install = "npm ci --no-audit --prefer-offline --no-progress --timing";
         # Open editors for the following files by default, if they exist:
-        default.openFiles = [ "src/App.tsx" "src/App.ts" "src/App.jsx" "src/App.js" ];
+        # default.openFiles = [ "src/App.tsx" "src/App.ts" "src/App.jsx" "src/App.js" ];
       };
       # To run something each time the workspace is (re)started, use the `onStart` hook
     };
@@ -28,7 +28,8 @@
       enable = true;
       previews = {
         web = {
-          command = ["vite" "--port" "$PORT" "--host" "0.0.0.0"];
+          # command = ["vite" "--port" "$PORT" "--host" "0.0.0.0"];
+          command = ["node" "index.js" "$PORT"];
           manager = "web";
         };
       };
