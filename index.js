@@ -2,10 +2,10 @@ import express from "express";
 import cors from "cors";
 import { access, constants } from "node:fs/promises";
 import {isbot} from "isbot";
+import {distDir,assetsDir} from "./api.config.js"
 import path from "node:path";
 const app = express();
-const distDir = path.join(import.meta.dirname, "dist");
-const assetsDir = path.join(distDir, "assets");
+const port = parseInt(process.env.PORT) || process.argv[3] || 8080;
 app.use(cors());
 app.get((req, res, next) => {
   if (isbot()) res.sendStatus(403);
@@ -15,7 +15,6 @@ app.get("/", (req, res) => {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.header("Expires", "-1");
   res.header("Pragma", "no-cache");
-  console.log(`${assetsDir}/${req.params.file}`)
   res.sendFile(`${distDir}/index.html`);
 });
 app.get("/assets/:file", async (req, res) => {
@@ -30,5 +29,4 @@ app.get("/assets/:file", async (req, res) => {
   res.sendFile(`${assetsDir}/${req.params.file}`);
 });
 console.log("test")
-//app.set("port", process.env.PORT||8080)
-app.listen(process.env.PORT||8080, '0.0.0.0');
+app.listen(port, '0.0.0.0');

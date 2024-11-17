@@ -6,6 +6,7 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.nodejs_20
+    pkgs.nodePackages.nodemon
   ];
   # Sets environment variables in the workspace
   env = {};
@@ -29,7 +30,7 @@
       previews = {
         web = {
           # command = ["vite" "--port" "$PORT" "--host" ""];
-          command = ["node" "index.js" "$PORT"];
+          command = ["npm" "run" "dev" "--" "--port" "$PORT"];
           manager = "web";
         };
       };

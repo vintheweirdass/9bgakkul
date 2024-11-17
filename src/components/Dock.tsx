@@ -1,8 +1,8 @@
-import {Button, Typography} from "@mui/material"
+import {Button} from "@mui/material"
 import {Link} from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faInstagram, faSpotify} from "@fortawesome/free-brands-svg-icons"
-import {faHome, faUsers, faWindowMaximize} from "@fortawesome/free-solid-svg-icons";
+import {faHome, faUsers} from "@fortawesome/free-solid-svg-icons";
 import { CSSProperties } from "react";
 const dockStyle: CSSProperties = {
   display: "flex", // Use display: flex to enable flexbox layout
@@ -22,29 +22,6 @@ const btnStyle:CSSProperties = {
   padding:25,
   border:"none"
 }
-export function CpanelDock(){
-  
-  return <><div style={dockStyle}>
-  <div>
-  <Link to="/">
-  <Button style={btnStyle}><FontAwesomeIcon icon={faHome} fontSize={30} color="white"/></Button>
-  </Link>
-  </div>
-  <div>
-  <Link to="mailto:abuse@cupglass.is-a.dev">
-  <Button>
-  <Typography>abuse@cupglass.is-a.dev</Typography>
-  </Button>
-  </Link>
-  </div>
-  </div>
-  <div style={
-    {
-      marginBottom:100
-    }
-  }></div>
-  </>
-}
 export default function () {
     return <><div style={dockStyle}>
     <div>
@@ -53,9 +30,6 @@ export default function () {
     </Link>
     <Link to="/friends">
     <Button style={btnStyle}><FontAwesomeIcon icon={faUsers} fontSize={30} color="white"/></Button>
-    </Link>
-    <Link to="/panel">
-    <Button style={btnStyle}><FontAwesomeIcon icon={faWindowMaximize} fontSize={30} color="white"/></Button>
     </Link>
     </div>
     <div>

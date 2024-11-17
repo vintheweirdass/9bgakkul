@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import App from './App.tsx'
 import FriendsPage from "./Friends.tsx"
-import PanelPage from "./Panel.tsx"
 import Page404 from "./404.tsx"
 import "./index.css"
 import "./App.css"
@@ -45,7 +44,6 @@ function Root() {
     <Routes>
       {/* ⬆️ Home route lifted up to the data router */}
       <Route path="/friends/" element={<><FriendsPage /><AbuseReport /></>} />
-      <Route path="/panel/" element={<PanelPage />} />
       <Route path="/friends/:name" element={<><FriendsPage /><AbuseReport /></>} />
       <Route path="*" element={<><Page404 /><AbuseReport /></>} />
     </Routes>
