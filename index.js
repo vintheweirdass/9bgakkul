@@ -20,9 +20,9 @@ const sendIndex =  (req, res, next)=>{
 app.get("/", bot, sendIndex)
 app.get("/friends", bot, sendIndex)
 app.get("/friends/:name", bot, sendIndex)
-app.get("/assets/:file", bot, async (req, res) => {
-  res.sendFile(path.join(assetsDir, ${req.params.file}));
-});
+// app.get("/assets/:file", bot, async (req, res) => {
+//   res.sendFile(path.join(assetsDir, ${req.params.file}));
+// });
 console.log("test")
 app.listen(5000, () => {
   console.log("Running on port 5000.");
