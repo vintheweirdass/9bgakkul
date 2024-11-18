@@ -29,4 +29,5 @@ app.get("/assets/:file", async (req, res) => {
   res.sendFile(`${assetsDir}/${req.params.file}`);
 });
 console.log("test")
-app.listen(port, '0.0.0.0');
+//app.listen(port, '0.0.0.0');
+app.listen()
