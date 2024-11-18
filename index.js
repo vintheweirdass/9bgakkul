@@ -5,7 +5,7 @@ import {isbot} from "isbot";
 import {distDir,assetsDir} from "./api.config.js"
 import path from "node:path";
 const app = express();
-const port = parseInt(process.env.PORT) || process.argv[3] || 8080;
+// const port = parseInt(process.env.PORT) || process.argv[3] || 8080;
 app.use(cors());
 app.get((req, res, next) => {
   if (isbot()) res.sendStatus(403);
@@ -29,5 +29,7 @@ app.get("/assets/:file", async (req, res) => {
   res.sendFile(`${assetsDir}/${req.params.file}`);
 });
 console.log("test")
+app.listen(5000, () => {
+  console.log("Running on port 5000.");
+});
 //app.listen(port, '0.0.0.0');
-app.listen()
