@@ -21,15 +21,7 @@ app.get("/", bot, sendIndex)
 app.get("/friends", bot, sendIndex)
 app.get("/friends/:name", bot, sendIndex)
 app.get("/assets/:file", bot, async (req, res) => {
-  try {
-    access(
-      `${assetsDir}/${req.params.file}`,
-      constants.R_OK | constants.W_OK
-    ).then(() => {});
-  } catch {
-    return res.sendStatus(404);
-  }
-  res.sendFile(`${assetsDir}/${req.params.file}`);
+  res.sendFile(path.join(assetsDir, ${req.params.file}));
 });
 console.log("test")
 app.listen(5000, () => {
