@@ -7,17 +7,20 @@ import path from "node:path";
 const app = express();
 // const port = parseInt(process.env.PORT) || process.argv[3] || 8080;
 app.use(cors());
-app.get((req, res, next) => {
+const bot = (req, res, next) => {
   if (isbot()) res.sendStatus(403);
   else next();
-});
-app.get("/", (req, res) => {
+}
+const sendIndex =  (req, res, next)=>{
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.header("Expires", "-1");
   res.header("Pragma", "no-cache");
   res.sendFile(`${distDir}/index.html`);
-});
-app.get("/assets/:file", async (req, res) => {
+}
+app.get("/", bot, sendIndex)
+app.get("/friends", bot, sendIndex)
+app.get("/friends/:name", bot, sendIndex)
+app.get("/assets/:file", bot, async (req, res) => {
   try {
     access(
       `${assetsDir}/${req.params.file}`,
