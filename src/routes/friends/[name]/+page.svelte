@@ -8,7 +8,8 @@
 </script>
 
 <svelte:head>
-	<title>{data.name} - About</title>
+	<title>{data.name} - Friends</title>
+        <meta name="description" content="Temen temen 9b" />
 </svelte:head>
 
 <button
