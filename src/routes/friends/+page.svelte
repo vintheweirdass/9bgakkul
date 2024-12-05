@@ -4,8 +4,8 @@
 </script>
 
 <svelte:head>
-	<title>About</title>
-	<meta name="description" content="About this app" />
+	<title>Friends</title>
+	<meta name="description" content="Temen temen 9b" />
 </svelte:head>
 <div class="grid-container">
 	{#each Object.keys(friendsListInfer) as friend}
