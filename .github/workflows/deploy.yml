@@ -39,6 +39,6 @@ jobs:
         with:
           project: "vincent-9bgakkul-12"
           entrypoint: "index.js"
-          root: ".svelte-kit/output/server"
+          root: "build"
           
           
