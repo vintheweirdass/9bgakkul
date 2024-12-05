@@ -1,3 +1,8 @@
+.github
+package-lock
+tsconfig*
+.idx
+
 # Logs
 logs
 *.log
