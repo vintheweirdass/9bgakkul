@@ -4,7 +4,7 @@
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="description" content="9b emang gak kul. Mending lgsg masuk websitenya dah, daripada nengok deskripsi doang" />
 </svelte:head>
 
 <section>
