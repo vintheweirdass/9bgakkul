@@ -64,7 +64,7 @@
     {/if}
 </div>
 
-<style>
+<style scoped>
     .smblnparts-friend {
         background-color: rgba(0, 0, 0, 0.071);
         padding: 10px;

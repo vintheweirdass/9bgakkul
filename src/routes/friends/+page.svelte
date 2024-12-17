@@ -1,15 +1,20 @@
-<script>
+<script lang="ts">
 	import { friendsListInfer } from "$lib/modules/friendsList";
 	import Friend from "$lib/parts/Friend.svelte";
+	import Search from "$lib/parts/Search.svelte";
+	let search: string = $state("");
 </script>
 
 <svelte:head>
 	<title>Friends</title>
 	<meta name="description" content="Temen temen 9b" />
 </svelte:head>
+<Search bind:value={search} />
 <div class="grid-container">
 	{#each Object.keys(friendsListInfer) as friend}
-		<Friend inferName={friend} />
+		{#if search === "" || friend.includes(search)}
+			<Friend inferName={friend} />
+		{/if}
 	{/each}
 </div>
 

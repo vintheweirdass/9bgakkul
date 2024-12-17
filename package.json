@@ -2,6 +2,7 @@
 	"version": "0.1.0",
 	"type": "module",
 	"scripts": {
+		"init": "deno install --allow-scripts",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -9,16 +10,15 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"dependencies": {
+		"@fontsource/fira-mono": "^5.0.0",
 		"@fontsource/space-grotesk": "^5.1.0",
 		"@iconify-json/ri": "^1.2.3",
 		"@iconify/types": "^2.0.0",
-		"@types/is-number": "^7.0.5",
 		"is-number": "^7.0.0"
 	},
 	"devDependencies": {
+		"@types/is-number": "^7.0.5",
 		"svelte-adapter-deno": "^0.9.1",
-		"@fontsource/fira-mono": "^5.0.0",
-		"@neoconfetti/svelte": "^2.0.0",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
