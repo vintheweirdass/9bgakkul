@@ -9,7 +9,6 @@
 		content="9b emang gak kul. Mending lgsg masuk websitenya dah, daripada nengok deskripsi doang"
 	/>
 </svelte:head>
-
 <section>
 	<h1>9b is <span><Icon name="fire-fill" color="red" />cooked</span></h1>
 	<p>We like to</p>

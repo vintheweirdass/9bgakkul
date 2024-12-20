@@ -1,33 +1,36 @@
 <script lang="ts">
+	import ri from "@iconify-json/ri/icons.json";
 	import { page } from "$app/stores";
 	import bintang from "$lib/images/bintang.png";
 	import github from "$lib/images/github.svg";
 	import { providers } from "$lib/modules/friendsList";
+    import Icon from "$lib/parts/Icon.svelte";
 </script>
 
 <header>
 	<div class="corner">
 		<img src={bintang} alt="B i n t a n g" />
 	</div>
-	{#snippet navTo(href: string, name: string)}
-		<li aria-current={$page.url.pathname === href ? "page" : undefined}>
-			<a {href}>{name}</a>
+	{#snippet navTo(href: string, name: string, icon?:string|undefined)}
+		<li aria-current={$page.url.pathname === href ? "page" : undefined} title={name}>
+			<a {href}><Icon name="{icon??((name).toLowerCase())}-{$page.url.pathname === href?"fill":"line"}"/></a>
 		</li>
 	{/snippet}
 	<nav>
 		<ul>
 			{@render navTo("/", "Home")}
-			{@render navTo("/friends", "Friends")}
-			{@render navTo("/about", "About")}
+			{@render navTo("/friends", "Friends", "user-community")}
+			{@render navTo("/msgmaker", "Message Maker", "message-3")}
+			{@render navTo("/about", "About", "information")}
 		</ul>
 	</nav>
 	<nav>
 		<ul>
 			<li>
-				<a href={`${providers["instagram"]}9b_iscooked`}>Instagram</a>
+				<a href={`${providers["instagram"]}9b_iscooked`}><Icon name="instagram-line"/></a>
 			</li>
 			<li>
-				<a href={"https://open.spotify.com/playlist/1DHqRh4zXuziQCKTL9x6tb"}>Spotify</a>
+				<a href={"https://open.spotify.com/playlist/1DHqRh4zXuziQCKTL9x6tb"}><Icon name="spotify-line"/></a>
 			</li>
 		</ul>
 	</nav>
@@ -83,9 +86,9 @@
 		width: 0;
 		height: 0;
 		position: absolute;
-		top: 70%;
+		top: 80%;
 		padding: 10px;
-		left: calc(40% - var(--size));
+		left: calc(42% - var(--size));
 		border-top: var(--size) solid var(--color-theme-1);
 	}
 
@@ -93,7 +96,7 @@
 		display: flex;
 		height: 100%;
 		align-items: center;
-		padding: 0 0.5rem;
+		padding: 0 0.8rem;
 		color: var(--color-text);
 		font-weight: 700;
 		font-size: 0.8rem;
