@@ -1,8 +1,6 @@
 <script lang="ts">
-	import ri from "@iconify-json/ri/icons.json";
 	import { page } from "$app/stores";
 	import bintang from "$lib/images/bintang.png";
-	import github from "$lib/images/github.svg";
 	import { providers } from "$lib/modules/friendsList";
     import Icon from "$lib/parts/Icon.svelte";
 </script>

@@ -1,8 +1,7 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
     import { effect, ev } from "$lib/modules/nf.svelte";
     import { Profanity } from "@2toad/profanity";
-    import Icon from "./Icon.svelte";
-    import Each from "./message/Each.svelte";
     import {
         OptionSchema,
         type Option,
@@ -18,10 +17,6 @@
     }: Option = $props();
     const editor = editorMode ?? false;
     // const editor = true
-
-    const generalOpt = { name, description, spotifySong };
-
-    let submit = $state<HTMLButtonElement | undefined>(undefined);
     /*
     Censorship (just to play safe with the domain owner (is-not.cool))
     */
@@ -31,19 +26,9 @@
         grawlix: "🚫",
         grawlixChar: "$",
     });
-
-    /*
-    DESCRIPTION
-    */
-    let inputDescription = $state<string>(description ?? "");
-    // svelte-ignore state_referenced_locally
-    let inputDescriptionBefore = $state<string>(inputDescription);
-    let descriptionFiltered = $state<boolean>(true);
-
     /*
     NAME
      */
-    let inputName = $state<string>("");
     const defaultSpotifySong =
         "https://open.spotify.com/track/1R28m5eWk1EV9FQ3puWrUp";
     // svelte-ignore state_referenced_locally
@@ -77,13 +62,13 @@
                 use:copy={{
                     text: `${location.origin}/msg?${new URLSearchParams(paramsObj).toString()}`,
                     events: ["submit"],
-                    onCopy({ text, event }) {
+                    onCopy(_) {
                         linkCopied = true;
                         setTimeout(() => {
                             linkCopied = false;
                         }, 5000);
                     },
-                    onError({ error, event }) {
+                    onError({ error }) {
                         alert(`Failed to copy link: ${error.message}`);
                     },
                 }}
@@ -129,6 +114,9 @@
                             }
                         }}
                     />
+                    {#if toggleSpotifyDefaultSong}
+                    <a href={defaultSpotifySong}>Fazers - King Geedorah</a>
+                    {/if}
                 {/if}
                 <label for="description">Description</label>
                 <textarea
@@ -147,7 +135,7 @@
             </form>
             <hr />
         {/if}
-        <div class="display{editor?" editor":""}">
+        <div in:fade class="display{editor?" editor":""}">
             {#if editor}
                 <button
                     onclick={() => {

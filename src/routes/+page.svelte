@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { fade, slide } from 'svelte/transition';
 	import Icon from "$lib/parts/Icon.svelte";
-	import TitleBanner from "$lib/images/title-banner.png"
+	import TitleBanner from "$lib/images/title-banner.png";
+	let showInterlude = $state(true)
+	setTimeout(()=>showInterlude=false, 5000)
 </script>
 
 <svelte:head>
@@ -11,8 +14,12 @@
 	/>
 </svelte:head>
 <section>
-	<img class="banner" alt="title banner" src={TitleBanner}/>
-	<h1>9b is <span><Icon name="fire-fill" color="red" />cooked</span></h1>
+	{#if showInterlude}
+	<h1 transition:slide><Icon name="tree-fill" color="green" />Merry christmas!<Icon name="tree-fill" color="red" /></h1>
+	{:else}
+	<img transition:fade class="banner" alt="title banner" src={TitleBanner}/>
+	<h1 transition:fade>9b is <span><Icon name="tree-fill" color="green" /><Icon name="star-fill" color="orange" />cooked</span></h1>
+	{/if}
 	<p>We like to</p>
 	<ul class="tasks">
 		<li>

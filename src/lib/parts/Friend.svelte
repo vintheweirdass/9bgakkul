@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
     import {
         friendsList,
         friendsListInfer,
@@ -17,7 +18,7 @@
     let n = name ?? inferName!;
 </script>
 
-<div class="smblnparts-friend">
+<div in:fade class="smblnparts-friend">
     <h4>{n}</h4>
     {#if friendsListInfer[n]["description"]}
         <p>

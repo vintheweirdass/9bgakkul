@@ -4,10 +4,9 @@
 <script lang="ts">
 	import Header from './Header.svelte';
 	import '../app.css';
-    import { effect } from '$lib/modules/nf.svelte';
+
 
 	let { children } = $props();
-	effect(()=>{})
 </script>
 
 <div class="app">
