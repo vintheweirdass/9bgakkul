@@ -33,7 +33,7 @@
 		title="Spotify playlist"
 		style="border-radius:12px"
 		src="https://open.spotify.com/embed/playlist/1DHqRh4zXuziQCKTL9x6tb?utm_source=generator"
-		width="50%"
+		width="280"
 		height="352"
 		frameBorder="0"
 		allowfullscreen
