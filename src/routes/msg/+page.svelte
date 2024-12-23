@@ -31,8 +31,7 @@
         <h2 transition:slide><b>
             Loading <Icon name="loader-2-line" class="loading"/>
         </b></h2>
-    {/if}
-    {#if parse}
+    {:else}
         {#if parse.success}
             <Message {name} {description} {spotifySong} />
         {:else}
