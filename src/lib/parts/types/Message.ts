@@ -1,6 +1,6 @@
 //valibot
 import * as v from "valibot"
-export const spotifySongRegexHtml = "^(http(s)?:\\/\\/open.spotify.com\\/track\\/[0-9a-zA-Z]+(\\?[\\w]+=[\\w]+(&[\\w]+=[\\w]+)*)?)$"
+export const spotifySongRegexHtml = "^(http(s)?:\\/\\/open.spotify.com\\/track\\/[0-9a-zA-Z]+(\\?[\\w\\-]+=[\\w\\-]+(&[\\w\\-]+=[\\w\\-]+)*)?)$"
 export const spotifySongRegex = new RegExp(spotifySongRegexHtml)
 // svelte-ignore state_referenced_locally
 export const OptionSchema = v.objectAsync({
