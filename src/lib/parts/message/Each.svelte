@@ -16,7 +16,7 @@
     let derivedClass = $derived(`message-each ${className??""}`)
 </script>
 
-<div>
+<div class="message-each-root">
     {#if field}
         <fieldset class={derivedClass}>
             <legend>{name}</legend>
@@ -28,12 +28,3 @@
         </div>
     {/if}
 </div>
-<style scoped>
-    .message-each {
-        display: flex;
-        flex: 1 0.3 auto;
-        row-gap: 10px;
-        flex-direction: column;
-        align-items: center;
-    }
-</style>
