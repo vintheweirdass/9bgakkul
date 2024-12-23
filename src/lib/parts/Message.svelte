@@ -62,7 +62,7 @@
             description = profanity.censor(description);
         }
     });
-    let paramsObj = $derived({ name, description, spotifySong } as Record<
+    let paramsObj = $derived((spotifySong?{name, description, spotifySong}:{ name, description }) as Record<
         string,
         string
     >);
