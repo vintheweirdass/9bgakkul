@@ -12,15 +12,12 @@
     for (const [k, v] of ($page.url.searchParams).entries()) res[k] = v
     let parse = $state<valibot.SafeParseResult<typeof OptionSchema>|undefined>() 
     valibot.safeParseAsync(OptionSchema,res).then(e=>parse=e).catch(()=>{})
-    $inspect(spotifySong)
 </script>
 <svelte:head>
     <title>Message Maker</title>
 </svelte:head>
 <section>
-{#if parse?.success}
-<Message {name} {description} {spotifySong} />
-{:else}
+{#if !parse?.success}
 <h1>Whoops! Error parsing the link</h1>
 <p><b>Check the link and try again</b></p>
 {#if parse?.issues}
@@ -28,6 +25,8 @@
 <p>{ok.message}</p>
 {/each}
 {/if}
+{:else}
+<Message {name} {description} {spotifySong} />
 {/if}
 </section>
 <style>
