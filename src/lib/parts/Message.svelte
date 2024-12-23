@@ -8,10 +8,7 @@
         type Option,
         spotifySongRegexHtml,
     } from "./types/Message";
-    import * as valibot from "valibot";
-    import { superForm } from "sveltekit-superforms";
     import { copy } from "svelte-copy";
-    import { preventDefault } from "svelte/legacy";
     let {
         name = $bindable(),
         description = $bindable(),
@@ -165,7 +162,7 @@
                 {@const spotifySongResult = new URL(
                     spotifySong ? spotifySong : "https://example.com/o/o/o",
                 ).pathname.split("/")[2]}
-                {#if toggleSpotify || (!editor)}
+                {#if (editor && toggleSpotify) || (!editor && spotifySong)}
                     <iframe
                         title="Spotify playlist"
                         style="border-radius:12px"
