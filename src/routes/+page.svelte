@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from "$lib/parts/Icon.svelte";
+	import TitleBanner from "$lib/images/title-banner.png"
 </script>
 
 <svelte:head>
@@ -10,6 +11,7 @@
 	/>
 </svelte:head>
 <section>
+	<img class="banner" alt="title banner" src={TitleBanner}/>
 	<h1>9b is <span><Icon name="fire-fill" color="red" />cooked</span></h1>
 	<p>We like to</p>
 	<ul class="tasks">
@@ -47,6 +49,20 @@
 		justify-content: center;
 		align-items: center;
 		flex: 0.6;
+	}
+	.banner {
+		position: absolute;
+		width:20em;
+		top:70px;
+		z-index: 1;
+		opacity: 0.5;
+		border-radius: 30px;
+	}
+	h1 {
+		z-index: 2;
+	}
+	p {
+		z-index: 2;
 	}
 	ul.tasks {
 		display: flex;
