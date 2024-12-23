@@ -150,7 +150,7 @@
             </form>
             <hr />
         {/if}
-        <div class="display">
+        <div class="display{editor?" editor":""}">
             {#if editor}
                 <button
                     onclick={() => {
@@ -204,7 +204,7 @@
         align-items: center;
     }
     div.smblnparts-message > div.main > div.display {
-        display: none;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -229,8 +229,10 @@
         div.smblnparts-message > div.main {
             flex-direction: row-reverse;
         }
-        div.smblnparts-message > div.main > div.display {
-            display: flex;
+    }
+    @media only screen and (max-width: 600px) {
+    div.smblnparts-message > div.main > :global(div.display.editor) {
+            display: none;
         }
     }
 </style>
