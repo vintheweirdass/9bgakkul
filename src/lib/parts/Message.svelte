@@ -94,7 +94,7 @@
                 />
                 <input
                     type="button"
-                    value="Toggle spotify"
+                    value="{toggleSpotify?"Dis":"En"}able spotify"
                     onclick={() => {
                         toggleSpotify = !toggleSpotify;
                     }}
