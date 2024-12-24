@@ -29,7 +29,7 @@
     let toggleSpotify = $state<boolean>(false);
     let toggleSpotifyDefaultSong = $state<boolean>(false);
 
-    let toggleDisplay = $state<boolean>(true);
+    let toggleDisplay = $state<boolean>(!editor);
 
     let paramsObj = $derived(
         (spotifySongId

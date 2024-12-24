@@ -34,7 +34,7 @@ export const providers = {
 export const friendsList = {
     vintheweirdass: {
         badges: ["Owner", "Normal student"],
-        social: { discord: ["999863217557880842"], instagram: ["cupglassdev"], email: ["abuse@vintheweierdass.is-a.dev"] },
+        social: { discord: ["999863217557880842"], instagram: ["vintheweirdass"], email: ["abuse@vintheweirdass.is-a.dev"] },
         ownsDomain: ["@"],
         description: "A dumbass person who likes to destroy a Pi"
     },
