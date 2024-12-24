@@ -41,7 +41,7 @@
     let linkCopied = $state(false);
     // svelte-ignore state_referenced_locally
     let spotifySongBefore = $state<string|undefined>(undefined);
-    if (typeof spotifySong !== "undefined" && typeof spotifySongId === "undefined") {
+    if (spotifySong && spotifySong!=="o" && typeof spotifySongId === "undefined") {
         spotifySongId = new URL(
                 spotifySong ? spotifySong : "https://example.com/o/o/o",
             ).pathname.split("/")[2];
@@ -49,9 +49,11 @@
     let obfuscateLink = $state<boolean>(false)
     $effect(() => {
         if (spotifySong !== spotifySongBefore) {
+            try {
             spotifySongId = new URL(
-                spotifySong ? spotifySong : "https://example.com/o/o/o",
+                spotifySong!
             ).pathname.split("/")[2];
+            }catch(_){}
         } if (name.length > 0) {
             name = profanity.censor(name);
         } else if (description.length > 0) {
