@@ -1,11 +1,3 @@
-<script lang="ts">
-	import { fade, slide } from 'svelte/transition';
-	import Icon from "$lib/parts/Icon.svelte";
-	import TitleBanner from "$lib/images/title-banner.png";
-	let showInterlude = $state(true)
-	setTimeout(()=>showInterlude=false, 5000)
-</script>
-
 <svelte:head>
 	<title>Home</title>
 	<meta
@@ -13,12 +5,19 @@
 		content="9b emang gak kul. Mending lgsg masuk websitenya dah, daripada nengok deskripsi doang"
 	/>
 </svelte:head>
+<script lang="ts">
+	import { fade, slide } from 'svelte/transition';
+	import Icon from "$lib/parts/Icon.svelte";
+	import TitleBanner from "$lib/images/title-banner.png";
+	let showInterlude = $state(true)
+	setTimeout(()=>showInterlude=false, 5000)
+</script>
 <section>
 	{#if showInterlude}
-	<h1 transition:slide><Icon name="tree-fill" color="green" />Merry christmas!<Icon name="tree-fill" color="red" /></h1>
+	<h1 out:slide><Icon name="tree-fill" color="green" />Merry christmas!<Icon name="tree-fill" color="red" /></h1>
 	{:else}
-	<img transition:fade class="banner" alt="title banner" src={TitleBanner}/>
-	<h1 transition:fade>9b is <span><Icon name="tree-fill" color="green" /><Icon name="star-fill" color="orange" />cooked</span></h1>
+	<img in:fade class="banner" alt="title banner" src={TitleBanner}/>
+	<h1 in:fade>9b is <span><Icon name="tree-fill" color="green" /><Icon name="star-fill" color="orange" />cooked</span></h1>
 	{/if}
 	<p>We like to</p>
 	<ul class="tasks">

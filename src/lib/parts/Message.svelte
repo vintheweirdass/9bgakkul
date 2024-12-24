@@ -1,17 +1,14 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
-    import { effect, ev } from "$lib/modules/nf.svelte";
+    import { fade } from "svelte/transition";
     import { Profanity } from "@2toad/profanity";
-    import {
-        OptionSchema,
-        type Option,
-        spotifySongRegexHtml,
-    } from "./types/Message";
+    import { type Option, spotifySongRegexHtml } from "./types/Message";
     import { copy } from "svelte-copy";
+    import { compress } from "$lib/modules/compressString";
     let {
         name = $bindable(),
         description = $bindable(),
         spotifySong = $bindable(),
+        spotifySongId = $bindable(),
         editorMode,
         onsubmit,
     }: Option = $props();
@@ -29,27 +26,41 @@
     /*
     NAME
      */
-    const defaultSpotifySong =
-        "https://open.spotify.com/track/1R28m5eWk1EV9FQ3puWrUp";
+    const defaultSpotifySong = "1R28m5eWk1EV9FQ3puWrUp";
     // svelte-ignore state_referenced_locally
     let toggleSpotify = $state<boolean>(false);
     let toggleSpotifyDefaultSong = $state<boolean>(false);
 
     let toggleDisplay = $state<boolean>(true);
-    effect(() => {
-        if (name.length > 0) {
+
+    let paramsObj = $derived(
+        (spotifySongId
+            ? { name, description, spotifySongId }
+            : { name, description }) as Record<string, string>,
+    );
+    let linkCopied = $state(false);
+    // svelte-ignore state_referenced_locally
+    let spotifySongBefore = $state<string|undefined>(undefined);
+    if (typeof spotifySong !== "undefined" && typeof spotifySongId === "undefined") {
+        spotifySongId = new URL(
+                spotifySong ? spotifySong : "https://example.com/o/o/o",
+            ).pathname.split("/")[2];
+    }
+    let obfuscateLink = $state<boolean>(false)
+    $effect(() => {
+        if (spotifySong !== spotifySongBefore) {
+            spotifySongId = new URL(
+                spotifySong ? spotifySong : "https://example.com/o/o/o",
+            ).pathname.split("/")[2];
+        } if (name.length > 0) {
             name = profanity.censor(name);
-        }
-        if (description.length > 0) {
+        } else if (description.length > 0) {
             description = profanity.censor(description);
         }
+        spotifySongBefore = spotifySong;
     });
-    let paramsObj = $derived((spotifySong?{name, description, spotifySong}:{ name, description }) as Record<
-        string,
-        string
-    >);
-    // svelte-ignore state_referenced_locally
-    let linkCopied = $state(false);
+    const paramsObjString = $derived(new URLSearchParams(paramsObj).toString())
+    $inspect(obfuscateLink)
 </script>
 
 <div class="smblnparts-message">
@@ -60,7 +71,7 @@
                     e.preventDefault();
                 }}
                 use:copy={{
-                    text: `${location.origin}/msg?${new URLSearchParams(paramsObj).toString()}`,
+                    text: (obfuscateLink?`${location.origin}/msg/${compress(paramsObjString)}`:`${location.origin}/msg?${paramsObjString}`),
                     events: ["submit"],
                     onCopy(_) {
                         linkCopied = true;
@@ -108,14 +119,17 @@
                             toggleSpotifyDefaultSong =
                                 !toggleSpotifyDefaultSong;
                             if (toggleSpotifyDefaultSong) {
-                                spotifySong = defaultSpotifySong;
+                                spotifySong = `https://open.spotify.com/track/${defaultSpotifySong}`;
                             } else {
                                 spotifySong = "";
                             }
                         }}
                     />
                     {#if toggleSpotifyDefaultSong}
-                    <a href={defaultSpotifySong}>Fazers - King Geedorah</a>
+                        <a
+                            href={`https://open.spotify.com/track/${defaultSpotifySong}`}
+                            >Fazers - King Geedorah</a
+                        >
                     {/if}
                 {/if}
                 <label for="description">Description</label>
@@ -127,15 +141,18 @@
                     maxlength={1500}
                     required
                 ></textarea>
-                <!-- svelte-ignore a11y_consider_explicit_label -->
-                <input type="submit" value="Generate link" />
+                <button onclick={()=>obfuscateLink=true}>Generate Link</button>
+                <!-- svelte-ignore a11y_label_has_associated_control -->
+                <label>Or</label>
+                <button onclick={()=>obfuscateLink=false}>Generate Exposed Link</button>
+
                 {#if linkCopied}
                     <input readonly value="Link copied!" />
                 {/if}
             </form>
             <hr />
         {/if}
-        <div in:fade class="display{editor?" editor":""}">
+        <div in:fade class="display{editor ? ' editor' : ''}">
             {#if editor}
                 <button
                     onclick={() => {
@@ -147,14 +164,11 @@
                 <h2 class="name-header">
                     From your friend, <br /><b>{name!}</b>
                 </h2>
-                {@const spotifySongResult = new URL(
-                    spotifySong ? spotifySong : "https://example.com/o/o/o",
-                ).pathname.split("/")[2]}
-                {#if (editor && toggleSpotify) || (!editor && spotifySong)}
+                {#if (editor && toggleSpotify) || (!editor && (spotifySong||spotifySongId))}
                     <iframe
                         title="Spotify playlist"
                         style="border-radius:12px"
-                        src="https://open.spotify.com/embed/track/{spotifySongResult}?utm_source=generator"
+                        src="https://open.spotify.com/embed/track/{spotifySongId}?utm_source=generator"
                         width="228"
                         height="200"
                         frameBorder="0"
@@ -216,7 +230,7 @@
         }
     }
     @media only screen and (max-width: 600px) {
-    div.smblnparts-message > div.main > :global(div.display.editor) {
+        div.smblnparts-message > div.main > :global(div.display.editor) {
             display: none;
         }
     }

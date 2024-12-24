@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { copy } from "svelte-copy";
-    import { granted, writeText } from "$lib/modules/clipboard";
     import Message from "$lib/parts/Message.svelte";
     let name = $state<string>("");
     let description = $state<string>("");
