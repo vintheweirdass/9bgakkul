@@ -12,9 +12,7 @@ export const OptionSchema = v.objectAsync({
 })
 
 // internal option (only used on .svelte files)
-export type Option = { name: string, description: string, spotifySong?:string, spotifySongId?:string, editorMode?:boolean, onsubmit?:(e:SubmitEvent & {
-    currentTarget: EventTarget & HTMLFormElement;
-})=>void}
+export type Option = { name: string, description: string, spotifySong?:string, spotifySongId?:string, editorMode?:boolean}
 const tuple = <T extends readonly string[]>(...args: T): T => args;
 export const theme = tuple("normal","christmas")
 export type Theme = (typeof theme)[number];

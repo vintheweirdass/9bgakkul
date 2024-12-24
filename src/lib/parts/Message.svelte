@@ -9,7 +9,6 @@
         spotifySong = $bindable(),
         spotifySongId = $bindable(),
         editorMode,
-        onsubmit,
     }: Option = $props();
     const editor = editorMode ?? false;
     // const editor = true
