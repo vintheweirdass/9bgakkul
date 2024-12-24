@@ -33,6 +33,7 @@
         </b></h2>
     {:else}
         {#if parse.success}
+            <p>(we're moving towards to ID-based message, to shorten the links)</p>
             <Message {name} {description} {spotifySong} />
         {:else}
             <h1>Whoops! Error parsing the link</h1>
