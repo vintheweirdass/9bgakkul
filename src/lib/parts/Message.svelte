@@ -72,7 +72,7 @@
                 }}
                 use:copy={{
                     text: obfuscateLink
-                        ? `${location.origin}/msg/${compress(paramsObjString)}`
+                        ? `${location.origin}/msg/${encodeURIComponent(compress(paramsObjString))}`
                         : `${location.origin}/msg?${paramsObjString}`,
                     events: ["submit"],
                     onCopy(_) {
