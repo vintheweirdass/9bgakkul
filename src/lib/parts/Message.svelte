@@ -60,7 +60,6 @@
         spotifySongBefore = spotifySong;
     });
     const paramsObjString = $derived(new URLSearchParams(paramsObj).toString())
-    $inspect(obfuscateLink)
 </script>
 
 <div class="smblnparts-message">
