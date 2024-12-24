@@ -40,28 +40,27 @@
     );
     let linkCopied = $state(false);
     // svelte-ignore state_referenced_locally
-    let spotifySongBefore = $state<string|undefined>(undefined);
-    if (spotifySong && spotifySong!=="o" && typeof spotifySongId === "undefined") {
-        spotifySongId = new URL(
-                spotifySong ? spotifySong : "https://example.com/o/o/o",
-            ).pathname.split("/")[2];
+    let spotifySongBefore = $state<string | undefined>(undefined);
+    if (spotifySong && typeof spotifySongId === "undefined") {
+        try {
+            spotifySongId = new URL(spotifySong!).pathname.split("/")[2];
+        } catch (_) {}
     }
-    let obfuscateLink = $state<boolean>(false)
+    let obfuscateLink = $state<boolean>(false);
     $effect(() => {
         if (spotifySong !== spotifySongBefore) {
             try {
-            spotifySongId = new URL(
-                spotifySong!
-            ).pathname.split("/")[2];
-            }catch(_){}
-        } if (name.length > 0) {
+                spotifySongId = new URL(spotifySong!).pathname.split("/")[2];
+            } catch (_) {}
+        }
+        if (name.length > 0) {
             name = profanity.censor(name);
         } else if (description.length > 0) {
             description = profanity.censor(description);
         }
         spotifySongBefore = spotifySong;
     });
-    const paramsObjString = $derived(new URLSearchParams(paramsObj).toString())
+    const paramsObjString = $derived(new URLSearchParams(paramsObj).toString());
 </script>
 
 <div class="smblnparts-message">
@@ -72,7 +71,9 @@
                     e.preventDefault();
                 }}
                 use:copy={{
-                    text: (obfuscateLink?`${location.origin}/msg/${compress(paramsObjString)}`:`${location.origin}/msg?${paramsObjString}`),
+                    text: obfuscateLink
+                        ? `${location.origin}/msg/${compress(paramsObjString)}`
+                        : `${location.origin}/msg?${paramsObjString}`,
                     events: ["submit"],
                     onCopy(_) {
                         linkCopied = true;
@@ -142,10 +143,14 @@
                     maxlength={1500}
                     required
                 ></textarea>
-                <button onclick={()=>obfuscateLink=true}>Generate Link</button>
+                <button onclick={() => (obfuscateLink = true)}
+                    >Generate Link</button
+                >
                 <!-- svelte-ignore a11y_label_has_associated_control -->
                 <label>Or</label>
-                <button onclick={()=>obfuscateLink=false}>Generate Exposed Link</button>
+                <button onclick={() => (obfuscateLink = false)}
+                    >Generate Exposed Link</button
+                >
 
                 {#if linkCopied}
                     <input readonly value="Link copied!" />
@@ -165,7 +170,7 @@
                 <h2 class="name-header">
                     From your friend, <br /><b>{name!}</b>
                 </h2>
-                {#if (editor && toggleSpotify) || (!editor && (spotifySong||spotifySongId))}
+                {#if (editor && toggleSpotify) || (!editor && (spotifySong || spotifySongId))}
                     <iframe
                         title="Spotify playlist"
                         style="border-radius:12px"
