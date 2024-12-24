@@ -3,7 +3,6 @@
     import { Profanity } from "@2toad/profanity";
     import { type Option, spotifySongRegexHtml } from "./types/Message";
     import { copy } from "svelte-copy";
-    import { compress } from "$lib/modules/compressString";
     let {
         name = $bindable(),
         description = $bindable(),
@@ -72,7 +71,7 @@
                 }}
                 use:copy={{
                     text: obfuscateLink
-                        ? `${location.origin}/msg/${btoa(compress(paramsObjString))}`
+                        ? `${location.origin}/msg/${btoa(paramsObjString)}`
                         : `${location.origin}/msg?${paramsObjString}`,
                     events: ["submit"],
                     onCopy(_) {

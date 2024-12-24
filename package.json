@@ -18,9 +18,7 @@
 		"@iconify/types": "^2.0.0",
 		"clipboard-polyfill": "^4.1.1",
 		"is-number": "^7.0.0",
-		"lz-string": "^1.5.0",
 		"svelte-copy": "^2.0.0",
-		"sveltekit-superforms": "^2.22.1",
 		"valibot": "^1.0.0-beta.9"
 	},
 	"devDependencies": {
